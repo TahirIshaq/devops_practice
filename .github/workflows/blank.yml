@@ -42,4 +42,6 @@ jobs:
         run: |
           echo ${{ secrets.SSH_SECRET_KEY }} > web-server.pem
           chmod 500 web-server.pem
-          ssh -i web-server.pem -o  ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }}
+          ssh -i web-server.pem -o "StrictHostKeyChecking no" ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} <<'ENDSSH'
+          pwd
+          ENDSSH
