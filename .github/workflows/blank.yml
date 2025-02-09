@@ -43,4 +43,4 @@ jobs:
           host: ${{ secrets.VM_HOST }}
           username: ${{ secrets.VM_USER }}
           key: ${{ secrets.SSH_SECRET_KEY }}
-          script: docker pull nginx
+          script: docker run -d -p 80:80 ${{ vars.DOCKERHUB_USERNAME }}/app:latest
