@@ -37,3 +37,10 @@ jobs:
         with:
           push: true
           tags: ${{ vars.DOCKERHUB_USERNAME }}/app:latest
+      -
+        name: Deploy to VM
+        run: |
+          echo "$SSH_PRIVATE_KEY" > web-server.pem
+          chmod 500 web-server.pem
+          ssh -i web-server.pem ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }}
+          docker run ${{ vars.DOCKERHUB_USERNAME }}/app:latest
