@@ -43,4 +43,4 @@ jobs:
           host: ${{ secrets.VM_HOST }}
           username: ${{ secrets.VM_USER }}
           key: ${{ secrets.SSH_SECRET_KEY }}
-          script: whoami
+          script: docker pull nginx
