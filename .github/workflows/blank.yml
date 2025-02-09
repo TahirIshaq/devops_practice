@@ -37,11 +37,10 @@ jobs:
         with:
           push: true
           tags: ${{ vars.DOCKERHUB_USERNAME }}/app:latest
-      -
-        name: Deploy to VM
-        run: |
-          echo ${{ secrets.SSH_SECRET_KEY }} > web-server.pem
-          chmod 500 web-server.pem
-          ssh -i web-server.pem -o "StrictHostKeyChecking no" ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} <<'ENDSSH'
-          pwd
-          ENDSSH
+      - name: SSH Remote Commands
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.SSH_SECRET_KEY }}
+          script: whoami
